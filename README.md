@@ -5,34 +5,18 @@ API REST simples para gerenciamento de pedidos (Orders) e itens utilizando Node.
 O projeto foi desenvolvido com foco em organização de código, separação de responsabilidades e facilidade de manutenção.
 
 # 🧱 Arquitetura do Projeto
-order-api/
-│
-├── src/
-│   ├── config/         # Configuração do banco de dados
-│   │   └── database.js
-│   │
-│   ├── controllers/    # Entrada HTTP (req/res)
-│   │   └── order.controller.js
-│   │
-│   ├── services/       # Regras de negócio
-│   │   └── order.service.js
-│   │
-│   ├── repositories/   # Acesso ao banco (SQL)
-│   │   └── order.repository.js
-│   │
-│   ├── mappers/        # Conversão DTO ⇄ Database
-│   │   └── order.mapper.js
-│   │
-│   ├── routes/         # Definição das rotas
-│   │   └── order.routes.js
-│   │
-│   ├── models/         # Modelos de domínio
-│   │   └── order.model.js
-│   │
-│   └── app.js          # Configuração do Express
-│
-├── server.js           # Inicialização do servidor
-├── package.json
+
+- src
+  - config          -> Configuração do banco de dados (database.js)
+  - controllers     -> Entrada HTTP / Recebe requisições (order.controller.js)
+  - services        -> Regras de negócio / Validações (order.service.js)
+  - repositories    -> Acesso ao banco / Queries SQL (order.repository.js)
+  - mappers         -> Conversão DTO ⇄ Database (order.mapper.js)
+  - routes          -> Definição das rotas HTTP (order.routes.js)
+  - models          -> Modelos de domínio (order.model.js)
+  - app.js          -> Configuração do Express
+- server.js         -> Inicialização do servidor
+- package.json      -> Dependências e scripts do projeto
 
 
 # ⚙️ Tecnologias Utilizadas
