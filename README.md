@@ -1,42 +1,59 @@
-# Arquitetura do projeto
+# 📦 Order API
 
+API REST simples para gerenciamento de pedidos (Orders) e itens utilizando Node.js, Express e PostgreSQL, construída seguindo uma arquitetura em camadas.
+
+O projeto foi desenvolvido com foco em organização de código, separação de responsabilidades e facilidade de manutenção.
+
+# 🧱 Arquitetura do Projeto
 order-api/
 │
 ├── src/
-│   ├── config/
+│   ├── config/         # Configuração do banco de dados
 │   │   └── database.js
 │   │
-│   ├── controllers/
+│   ├── controllers/    # Entrada HTTP (req/res)
 │   │   └── order.controller.js
 │   │
-│   ├── services/
+│   ├── services/       # Regras de negócio
 │   │   └── order.service.js
 │   │
-│   ├── repositories/
+│   ├── repositories/   # Acesso ao banco (SQL)
 │   │   └── order.repository.js
 │   │
-│   ├── mappers/
+│   ├── mappers/        # Conversão DTO ⇄ Database
 │   │   └── order.mapper.js
 │   │
-│   ├── routes/
+│   ├── routes/         # Definição das rotas
 │   │   └── order.routes.js
 │   │
-│   ├── models/
+│   ├── models/         # Modelos de domínio
 │   │   └── order.model.js
 │   │
-│   ├── app.js
+│   └── app.js          # Configuração do Express
 │
-├── server.js
+├── server.js           # Inicialização do servidor
 ├── package.json
 
-# Para criar o projeto:
 
-- EM SQL de o seguinte comando: 
+# ⚙️ Tecnologias Utilizadas
+
+Node.js
+
+Express
+
+PostgreSQL
+
+pg (node-postgres)
+
+# 🗄️ Configuração do Banco de Dados
+## 1️⃣ Criar o banco
+
+No PostgreSQL, execute:
 
 CREATE DATABASE orders_db;
+## 2️⃣ Criar as tabelas
 
-- Isso cria o banco de dados para armazenar as tabelas do CRUD
-- Após criar o banco, é necessário criar as tabelas:
+Após criar o banco, execute:
 
 CREATE TABLE orders (
   orderid SERIAL PRIMARY KEY,
@@ -55,12 +72,70 @@ CREATE TABLE items (
     ON DELETE CASCADE
 );
 
-# As configurações de conexão com o banco postgrs:
-- Caminho da configuração: 
-- config/database.js
+✔️ A tabela items possui relacionamento com orders via chave estrangeira.
 
-# Rodar o projeto
-- Pra rodar, basta dar: 
-    npm i
-    node server.js
+# 🔌 Configuração da Conexão
 
+As configurações do banco ficam em:
+
+src/config/database.js
+
+Edite conforme seu ambiente:
+
+user
+password
+host
+port
+database
+
+# ▶️ Rodando o Projeto
+
+Instale as dependências:
+
+npm install
+
+Inicie o servidor:
+
+node server.js
+
+Se tudo estiver correto, você verá:
+
+Servidor rodando na porta 3000
+
+# 🚀 Endpoints Disponíveis
+Criar pedido
+POST /order
+
+Body:
+
+{
+  "numeroPedido": "ABC-001",
+  "valorTotal": 1000,
+  "dataCriacao": "2023-07-19T12:24:11.529Z",
+  "items": [
+    {
+      "idItem": "123",
+      "quantidadeItem": 2,
+      "valorItem": 500
+    }
+  ]
+}
+Listar pedidos
+GET /order
+Buscar pedido por ID
+GET /order/:id
+Atualizar pedido
+PUT /order/:id
+Deletar pedido
+DELETE /order/:id
+
+# 🧠 Organização em Camadas
+
+O projeto segue separação clara de responsabilidades:
+
+Camada	Responsabilidade
+Controller	Recebe requisição HTTP
+Service	Regras de negócio e validações
+Repository	Comunicação com banco
+Mapper	Conversão entre API e banco
+Config	Infraestrutura
